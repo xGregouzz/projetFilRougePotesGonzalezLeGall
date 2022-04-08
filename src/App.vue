@@ -29,6 +29,7 @@ export default {
       this.lignes.prixTotalLigne = prixTotal;
       return prixTotal;
     },
+    
     calculerPrixTotal() {
       let number = 0;
       for (let ligne of this.lignes) {
