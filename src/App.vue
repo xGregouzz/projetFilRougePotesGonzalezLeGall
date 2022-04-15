@@ -1,63 +1,19 @@
-<script lang="ts">
-export default {
-  data() {
-    return {
-      nom: "",
-      prenom: "",
-      telephone: "",
-      prixTotal: "",
-      tva: "0%",
-      date: new Date(),
-      lignes: [{
-        produit: "",
-        prix: "",
-        quantite: "",
-        prixTotalLigne: "",
-      }],
-    }
-  },
-  methods: {
-    ajouterLigne: function (event) {
-      this.lignes.push({
-        produit: "",
-        prix: "",
-        quantite: "",
-      });
-    },
-    calculerPrixLigne(prix: number, quantite: number) {
-      let prixTotal = prix * quantite;
-      this.lignes.prixTotalLigne = prixTotal;
-      return prixTotal;
-    },
-    
-    calculerPrixTotal() {
-      let number = 0;
-      for (let ligne of this.lignes) {
-        number += this.calculerPrixLigne(ligne.prix, ligne.quantite);
-      }
-      this.prixTotal = number;
-      return number;
-    },
-  },
-};
-</script>
 <template>
   <section>
     <h2>Facture :</h2>
-    <p>Client : {{ prenom }} {{ nom }} ({{ telephone }})</p>
-    <p>TVA : {{ tva }}</p>
-    <p>Echéance : {{ echeance }}</p>
-    <p>Prix Total : {{ calculerPrixTotal() }}</p>
-    <br>
+    <p>
+      Client : {{ invoice.client.firstName }} {{ invoice.client.lastName }} ({{
+        invoice.client.phoneNumber
+      }})
+    </p>
+    <p>TVA : {{ invoice.client.tva }}</p>
+    <p>Echéance : {{ invoice.client.date }}</p>
+    <p>Prix Total : {{ calculTotalPrice() }}</p>
+    <br />
   </section>
   <section>
     <h2>Client :</h2>
-    <input v-model="prenom" placeholder="Prénom" />
-    <input v-model="nom" placeholder="Nom" />
-    <input v-model="telephone" placeholder="Téléphone" />
-    <br>
-    <br>
-    <br>
+    <Client v-bind:client="invoice.client"></Client>
   </section>
   <section>
     <h2>Lignes :</h2>
@@ -78,24 +34,86 @@ export default {
       </tr>
     </thead>
     <tbody>
-      <tr v-for="ligne in lignes">
+      <tr v-for="line in this.invoice.lines">
         <td>
-          <input type="text" v-model="ligne.produit" placeholder="Produit" />
+          <input type="text" v-model="line.product" placeholder="Produit" />
         </td>
         <td>
-          <input type="text" v-model="ligne.prix" placeholder="Prix" />
+          <input type="text" v-model="line.price" placeholder="Prix" />
         </td>
         <td>
-          <input type="text" v-model="ligne.quantite" placeholder="Quantité" />
+          <input type="text" v-model="line.quantity" placeholder="Quantité" />
         </td>
         <td>
-          <p>&nbsp {{ calculerPrixLigne(ligne.prix, ligne.quantite) }}</p>
+          <p>&nbsp {{ calculLinePrice(line.price, line.quantity) }}</p>
         </td>
       </tr>
     </tbody>
     <div>
-      <button class="button btn-primary" v-on:click="ajouterLigne">Ajouter Ligne</button>
-      <pre>{{ lignes }}</pre>
+      <button class="button btn-primary" v-on:click="addLine">
+        Ajouter Ligne
+      </button>
     </div>
   </section>
 </template>
+
+<script lang="ts">
+import Client from "./components/Client.vue";
+export default {
+
+  components: {
+    "Client": Client,
+  },
+
+  data() {
+    return {
+      invoice: {
+
+        client: {
+          lastname: "",
+          firstname: "",
+          phoneNumber: "",
+          totalPrice: "",
+          tva: "0%",
+          date: new Date(),
+        },
+
+        lines: [
+          {
+            product: "",
+            price: "",
+            quantity: "",
+          },
+        ],
+
+      },
+      showClientForm: false,
+    };
+  },
+  methods: {
+    addLine: function (event) {
+      this.invoice.lines.push({
+        product: "",
+        price: "",
+        quantity: "",
+      });
+    },
+    calculLinePrice(price: number, quantity: number) {
+      let totalLinePrice = price * quantity;
+      this.invoice.lines.totalLinePrice = totalLinePrice;
+      return totalLinePrice;
+    },
+
+    calculTotalPrice() {
+      let number = 0;
+      for (let line of this.invoice.lines) {
+        number += this.calculLinePrice(line.price, line.quantity);
+      }
+      this.invoice.client.totalPrice = number;
+      return number;
+    },
+  },
+};
+</script>
+<style>
+</style>
