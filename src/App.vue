@@ -1,14 +1,14 @@
 <template>
+
   <section>
     <h2>Facture :</h2>
-    <p>
-      Client : {{ clientFullName }}
-    </p>
+    <p>Client : {{ clientFullName }}</p>
     <p>TVA : {{ invoice.client.tva }}</p>
     <p>Echéance : {{ invoice.client.date }}</p>
     <p>Prix Total : {{ calculTotalPrice() }}</p>
-    <br />
+    <br/>
   </section>
+
   <section>
     <h2>Client :</h2>
     <template v-if="!displayClientForm">
@@ -17,56 +17,43 @@
     </template>
     <client-form v-else v-bind:client="invoice.client" v-on:valider="hideClientForm"></client-form>
   </section>
+
   <section>
-    <h2>Lignes :</h2>
-    <thead>
-      <tr>
-        <td>
-          <strong>Produit</strong>
-        </td>
-        <td>
-          <strong>Prix</strong>
-        </td>
-        <td>
-          <strong>Quantité</strong>
-        </td>
-        <td>
-          <strong>&nbsp Total</strong>
-        </td>
-      </tr>
-    </thead>
-    <tbody>
-      <tr v-for="line in this.invoice.lines">
-        <td>
-          <input type="text" v-model="line.product" placeholder="Produit" />
-        </td>
-        <td>
-          <input type="text" v-model="line.price" placeholder="Prix" />
-        </td>
-        <td>
-          <input type="text" v-model="line.quantity" placeholder="Quantité" />
-        </td>
-        <td>
-          <p>&nbsp {{ calculLinePrice(line.price, line.quantity) }}</p>
-        </td>
-      </tr>
-    </tbody>
-    <div>
-      <button class="button btn-primary" v-on:click="addLine">
-        Ajouter Ligne
-      </button>
-    </div>
+    <h2>Lignes</h2>
+    <table>
+      <thead>
+        <tr>
+          <td>Produit</td>
+          <td>Prix</td>
+          <td>Quantité</td>
+          <td>Total</td>
+        </tr>
+      </thead>
+      <tbody>
+        <template v-for="(line, index) in invoice.lines">
+          <line v-if="!displayLineForm" v-bind:line="line"/>
+          <line-form v-else v-bind:line="line" />
+        </template>
+      </tbody>
+    </table>
+    <button v-on:click="addLine">Ajouter une ligne</button>
   </section>
+
 </template>
 
 <script lang="ts">
-import Client from "./components/Client.vue";
+import ClientVue from "./components/Client.vue";
 import ClientFormVue from './components/ClientForm.vue';
+import LineVue from './components/Line.vue';
+import LineFormVue from './components/LineForm.vue';
+
 export default {
 
   components: {
-    "Client": Client,
+    "Client": ClientVue,
     "ClientForm": ClientFormVue,
+    "Line": LineVue,
+    "LineForm": LineFormVue,
   },
 
   data() {
@@ -91,6 +78,7 @@ export default {
       },
 
       displayClientForm: false,
+      displayLineForm: false,
     };
   },
 
@@ -101,6 +89,7 @@ export default {
   },
   methods: {
     addLine: function (event) {
+      this.displayLineForm = true;
       this.invoice.lines.push({
         product: "",
         price: "",
