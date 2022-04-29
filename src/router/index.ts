@@ -1,20 +1,19 @@
-import InvoiceVue from '@/components/Invoice.vue'
+import InvoiceView from '@/views/InvoiceView.vue'
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeVue from '@/components/Home.vue'
+import HomeView from '@/views/HomeView.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
-      name: 'home',
-      component: HomeVue
+      name: 'home-view',
+      component: HomeView
     },
     {
-      path: '/factures',
-      name: 'factures',
-      component: InvoiceVue
+      path: '/invoice',
+      name: 'invoice-vue',
+      component: InvoiceView
     }
-
   ]
 })
 export default router

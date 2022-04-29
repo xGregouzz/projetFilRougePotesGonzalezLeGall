@@ -1,12 +1,11 @@
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 
-import HomeViewVue from './views/HomeView.vue'
-import router from './router'
+import AppVue from '@/App.vue'
+import router from '@/router'
 
-const app = createApp(HomeViewVue)
+const app = createApp(AppVue)
 
 app.use(createPinia())
 app.use(router)
-
 app.mount('#app')

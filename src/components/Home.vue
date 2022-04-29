@@ -1,7 +1,6 @@
 <template>
-    <h2>Bienvenue sur mon Site</h2>
-    <div class="facturesDirectory">
-        <router-link to="/factures">Factures</router-link>
+    <div class="homeDirectory">
+      <router-link to="/invoice">Factures</router-link>
     </div>
 </template>
 

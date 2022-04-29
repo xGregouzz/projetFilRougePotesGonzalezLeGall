@@ -1,7 +1,5 @@
 <template>
-  <div class="homeDirectory">
-  <router-link to="/">Home</router-link>
-  </div>
+  <Home />
   <br>
   <br>
   <br>
@@ -9,11 +7,13 @@
 </template>
 
 <script>
+import Home from '@/components/Home.vue'
 export default {
-
+  components: {
+    Home,
+  }
 }
 </script>
-
 <style type="text/css">
   @import '@/assets/styles/allView.css';
 </style>
