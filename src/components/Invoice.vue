@@ -1,5 +1,5 @@
 <template>
-
+  <router-view></router-view>
   <section>
     <h2>Facture :</h2>
     <p>Client : {{ clientFullName }}</p>
@@ -147,35 +147,6 @@ export default {
   },
 };
 </script>
-<style>
-  table {
-    margin-left:auto;
-    margin-right:auto;
-  }
-
-  td {
-    padding: 10px;
-    border: 1px solid rgb(255, 255, 255);
-    border-collapse: collapse;
-  }
-
-  body {
-    text-align: center;
-    color: whitesmoke;
-    background-color: rgb(28, 27, 27);
-  }
-
-  button {
-    color: white;
-    font-weight: 700;
-    background-color: rgb(28, 27, 27);
-    font-size: 1em;
-    border-radius: 1em;
-    border: 2px solid rgb(255, 255, 255);
-  }
-  h2 {
-    font-weight: 1000;
-    font-size: 1.8em;
-    text-decoration: underline;
-  }
+<style type="text/css">
+  @import '../assets/styles/allView.css';
 </style>

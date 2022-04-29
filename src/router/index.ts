@@ -1,22 +1,20 @@
+import InvoiceVue from '@/components/Invoice.vue'
 import { createRouter, createWebHistory } from 'vue-router'
-import AppVue from '../components/Invoice.vue'
-
+import HomeVue from '@/components/Home.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
       name: 'home',
-      component: AppVue
+      component: HomeVue
     },
     {
-      path: '/about',
-      name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import('../components/Invoice.vue')
+      path: '/factures',
+      name: 'factures',
+      component: InvoiceVue
     }
+
   ]
 })
 export default router
