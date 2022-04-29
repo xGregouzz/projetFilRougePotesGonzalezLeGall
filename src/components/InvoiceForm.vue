@@ -49,6 +49,8 @@
     </table>
     <br>
     <button v-on:click="addLine">Ajouter une ligne</button>
+    <br>
+    <br>
   </section>
 
 </template>
@@ -147,6 +149,3 @@ export default {
   },
 };
 </script>
-<style type="text/css">
-  @import '../assets/styles/allView.css';
-</style>
