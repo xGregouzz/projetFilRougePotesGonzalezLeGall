@@ -25,18 +25,48 @@ button {
     border: 2px solid rgb(255, 255, 255);
 }
 
+.buttonInvoice {
+    color: rgb(255, 255, 255);
+    font-weight: 700;
+    background-color: rgb(28, 27, 27);
+    font-size: 1.6em;
+    border-radius: 1em;
+    border: 3px solid rgb(255, 255, 255);
+    font-style: normal;
+}
+
 .buttonHome {
     color: rgb(255, 255, 255);
     font-weight: 700;
     background-color: rgb(28, 27, 27);
-    font-size: 1.8em;
+    font-size: 1.6em;
     border-radius: 1em;
     border: 3px solid rgb(255, 255, 255);
+    font-style: normal;
 }
 
-.buttonHome:hover {
-    color: aqua;
+.buttonInvoice:hover {
+    color: rgb(3, 220, 228);
 }
+
+.routerInvoice {
+    color: white;
+    text-decoration:none;
+}
+
+.routerInvoice:hover {
+    color: rgb(3, 220,228);
+}
+
+.routerHome {
+    color: white;
+    text-decoration:none;
+}
+
+.routerHome:hover {
+    color: rgb(3, 220,228);
+}
+
 
 h2 {
     font-weight: 1000;
@@ -46,8 +76,4 @@ h2 {
 
 .facturesDirectory {
     font-size: 1em;
-}
-
-.homeDirectory {
-    font-size: 2.4em;
 }

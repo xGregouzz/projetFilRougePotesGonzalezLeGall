@@ -1,12 +1,12 @@
 <template>
   <br>
-  <button class="buttonHome">
-    <router-link to="/invoice">Nouveau devis</router-link>
+  <button class="buttonInvoice">
+    <router-link class="routerInvoice" to="/invoice">Nouveau devis</router-link>
     <br>
   </button>
   <br>
   <br>
-  <button class="buttonHome" @click="goToInvoiceList">Toutes les factures</button>
+  <button class="buttonInvoice" @click="goToInvoiceList">Toutes les factures</button>
 </template>
 
 <script lang="ts">
