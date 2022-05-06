@@ -5,7 +5,7 @@
     <p>Client : {{ store.clientFullName }}</p>
     <p>TVA : {{ store.invoice.client.tva }}</p>
     <p>Echéance : {{ store.invoice.client.date }}</p>
-    <p>Prix Total : {{ calculTotalPrice() }}</p>
+    <p>Prix Total : {{ store.calculTotalPrice }}</p>
     <br>
   </section>
   <section>
@@ -14,10 +14,7 @@
       <client v-bind:client="store.invoice.client"></client>
       <button v-on:click="showClientForm">Modifier</button>
     </template>
-    <client-form 
-    v-else 
-    v-bind:client="store.invoice.client" 
-    v-on:valider="hideClientForm">
+    <client-form v-else v-bind:client="store.invoice.client" v-on:valider="hideClientForm">
     </client-form>
   </section>
 
@@ -36,13 +33,9 @@
       </thead>
       <tbody>
         <template v-for="(line, index) in store.invoice.lines">
-          <Line
-          v-if="!displayLineForm[index]" 
-          v-bind:line="line" @click="handleEditLine(index)">
+          <Line v-if="!displayLineForm[index]" v-bind:line="line" @click="handleEditLine(index)">
           </Line>
-          <LineForm
-          v-else v-bind:line="line" 
-          v-on:editOk="handleEditLineFinished(index)">
+          <LineForm v-else v-bind:line="line" v-on:editOk="handleEditLineFinished(index)">
           </LineForm>
         </template>
       </tbody>
@@ -64,9 +57,9 @@ import { invoiceStore } from '@/stores/invoice.ts';
 
 export default {
 
-  setup () {
+  setup() {
     const store = invoiceStore()
-    return {store}
+    return { store }
   },
 
   components: {
@@ -87,33 +80,18 @@ export default {
 
   methods: {
     addLine: function (event) {
-      this.invoice.lines.push({
+      this.store.invoice.lines.push({
         product: "",
         price: "",
         quantity: "",
       });
     },
 
-    calculLinePrice(price: number, quantity: number) {
-      let totalLinePrice = price * quantity;
-      this.store.invoice.lines.totalLinePrice = totalLinePrice;
-      return totalLinePrice;
-    },
-
-    calculTotalPrice() {
-      let number = 0;
-      for (let line of this.store.invoice.lines) {
-        number += this.calculLinePrice(line.price, line.quantity);
-      }
-      this.store.invoice.client.totalPrice = number;
-      return number;
-    },
-
     showClientForm() {
-			this.displayClientForm = true;
-		},
+      this.displayClientForm = true;
+    },
 
-    hideClientForm(newClient){
+    hideClientForm(newClient) {
       this.displayClientForm = false;
       this.store.invoice.client.firstname = newClient.firstname;
       this.store.invoice.client.lastname = newClient.lastname;
@@ -122,11 +100,11 @@ export default {
 
     handleEditLine(index) {
       this.displayLineForm.splice(index, 1, true);
-		},
+    },
 
     handleEditLineFinished(index) {
       this.displayLineForm.splice(index, 1, false);
-		}
+    }
   },
 };
 </script>

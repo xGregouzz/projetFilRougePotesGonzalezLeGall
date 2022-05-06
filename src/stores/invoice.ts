@@ -22,11 +22,21 @@ export const invoiceStore = defineStore('invoice', {
       },
     }
   },
+
   getters: {
     clientFullName: (state) => {
       return `${state.invoice.client.firstname} ${state.invoice.client.lastname} (${state.invoice.client.phoneNumber})`
-    }
+    },
+
+    calculTotalPrice: (state) => {
+      let total : number = 0;
+      for (let line of state.invoice.lines) {
+        total += Number(line.quantity) * Number(line.price);
+      }
+      return total;
+    },
   },
+
   actions: {
   },
 })

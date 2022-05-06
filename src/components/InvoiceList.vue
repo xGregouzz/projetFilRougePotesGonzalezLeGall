@@ -11,23 +11,33 @@
           <td>Montant en €</td>
         </tr>
       </thead>
-      <tbody>
+      <tbody @click="goToInvoice">
         <tr>
-            <td> {{numero}}</td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td>1</td>
+            <td>{{store.invoice.client.firstname}}</td>
+            <td>{{store.invoice.client.date}}</td>
+            <td>{{store.calculTotalPrice}}</td>
         </tr>
       </tbody>
     </table>
 </template>
 
 <script>
+import { invoiceStore } from '@/stores/invoice.ts';
 export default {
+  setup() {
+    const store = invoiceStore()
+    return { store }
+  },
     data() {
-        return {
-            numero: 1,
-        };
-    }
+      return {
+      };
+    },
+
+    methods: {
+      goToInvoice() {
+        this.$router.push('/invoice')
+      },
+    },
 }
 </script>
