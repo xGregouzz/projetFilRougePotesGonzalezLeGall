@@ -12,7 +12,7 @@
   <button @click="this.$emit('valider', this)">Valider</button>
 </template>
 
-<script>
+<script lang="ts">
 export default {
   data() {
     return {
@@ -24,10 +24,10 @@ export default {
 
   props: [
     "client"
-    ],
+  ],
 
   emits: [
     "valider"
-    ],
+  ],
 };
 </script>
